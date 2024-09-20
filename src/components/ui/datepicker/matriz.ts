@@ -2,6 +2,10 @@ export const turnToLastSunday = (date: Date): number => {
   return date.getDate() - date.getDay();
 };
 
+export const formatToYYYYMMDD = (date: Date): string => {
+  return date.toISOString().split("T")[0];
+};
+
 // Função para gerar as semanas do mês atual
 export const getWeeksInMonth = (year: number, month: number): Date[][] => {
   const weeks: Date[][] = [];
