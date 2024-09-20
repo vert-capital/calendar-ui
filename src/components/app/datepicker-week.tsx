@@ -4,6 +4,7 @@ import DatePicker, {
   getWeekInMonthSelected,
 } from "../ui/datepicker/date";
 import { formatToYYYYMMDD } from "../ui/datepicker/matriz";
+import { Button, Icons } from "@vert-capital/design-system-ui";
 
 interface IProps {
   valueSelect: (n: any) => void;
@@ -64,34 +65,29 @@ export const DatePickerWeek = ({
   return (
     <div className='flex items-center gap-4'>
       <div>
-        <button
-          className='h-auto font-bold text-sm relative transition text-cyan-800 hover:text-white hover:bg-cyan-800  rounded-full px-8 py-2 border border-cyan-800'
-          onClick={setToday}
-        >
-          <span>Hoje</span>
-        </button>
+        <Button variant={"outline"} onClick={setToday}>
+          Hoje
+        </Button>
       </div>
-      <div className='h-auto'>
+      <div className='h-auto flex items-center'>
         <button
-          className='px-4 font-bold text-cyan-800 cursor-pointer hover:opacity-70'
+          className='px-4 font-bold text-brand cursor-pointer hover:opacity-70'
           onClick={prevWeek}
         >
-          {"<"}
+          <Icons.ChevronLeft className='w-4' />
         </button>
         <button
-          className='px-4 font-bold text-cyan-800 cursor-pointer hover:opacity-70'
+          className='px-4 font-bold text-brand cursor-pointer hover:opacity-70'
           onClick={nextWeek}
         >
-          {">"}
+          <Icons.ChevronRight className='w-4' />
         </button>
         <button
-          className='font-bold relative hover:opacity-70'
+          className='font-bold relative hover:opacity-70 flex items-center'
           onClick={() => setIsShow(!isShow)}
         >
-          <span className='mr-4'>{textDate()} </span>
-          <span className=' font-bold text-cyan-800 cursor-pointer rotate-90 absolute'>
-            {">"}
-          </span>
+          <span className='mr-3'>{textDate()} </span>
+          <Icons.ChevronDown className='text-brand w-4' />
         </button>
         {isShow && (
           <>

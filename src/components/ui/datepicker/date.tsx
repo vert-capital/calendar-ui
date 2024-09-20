@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getWeeksInMonth, turnToLastSunday } from "./matriz";
+import { Icons } from "@vert-capital/design-system-ui";
 
 // Função para formatar a data no formato desejado (exemplo: 'dd/MM')
 const formatDate = (date: Date): string => {
@@ -98,14 +99,18 @@ const DatePicker = ({
     <div className='w-fit absolute rounded shadow bg-white px-4 py-2 border-stone-200 border'>
       {/* Cabeçalho com navegação entre meses */}
       <div className='flex items-center justify-between mb-2'>
-        <button className='p-1' onClick={handlePreviousMonth}>{`<`}</button>
+        <button className='p-1' onClick={handlePreviousMonth}>
+          <Icons.ChevronLeft className='w-4' />
+        </button>
         <span className='text-sm text-stone-500'>
           {currentMonth.getFullYear()}
           {"  "}
           {/* deixar a primeira lerta do mes upercase */}
           {nameMonth[0].toUpperCase() + nameMonth.slice(1)}
         </span>
-        <button className='p-1' onClick={handleNextMonth}>{`>`}</button>
+        <button className='p-1' onClick={handleNextMonth}>
+          <Icons.ChevronRight className='w-4' />
+        </button>
       </div>
 
       {/* Renderizando as semanas */}
@@ -148,13 +153,13 @@ const DatePicker = ({
                       selectedWeek &&
                       selectedWeek[0].getTime() === week[0].getTime() &&
                       (index === 0 || index === 6)
-                        ? "bg-cyan-800 text-white"
+                        ? "bg-brand text-white"
                         : ""
                     }
                     ${
                       today.getDate() === day.getDate() &&
                       today.getMonth() === day.getMonth()
-                        ? "text-cyan-800 font-bold"
+                        ? "text-brand font-bold"
                         : ""
                     }`}
                 style={{
