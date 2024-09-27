@@ -43,7 +43,7 @@ export const TableWeek = ({ data, start, isLoading = false }: IProps) => {
 
   return (
     <div className='overflow-x-auto overflow-y-hidden'>
-      <div className='grid grid-cols-7 min-w-[920px] min-h-[590px]'>
+      <div className='grid grid-cols-7 min-w-[920px] min-h-[590px]  border-b-2 border-stone-200'>
         {weekDaysString.map((day: any, index) => (
           <div
             key={`column_week_${index}`}
@@ -54,28 +54,39 @@ export const TableWeek = ({ data, start, isLoading = false }: IProps) => {
             </div>
             {data.data && !isLoading ? (
               <div
-                className='border border-stone-300 p-2 flex flex-col gap-2'
+                className='p-2 flex flex-col gap-2'
                 style={{ height: "calc(100% - 36px)" }}
               >
                 {data.data[day]?.events &&
-                  data.data[day]?.events.map((event: any, i: number) => (
-                    <CardEvent
-                      key={`card_event_${i}_${index}`}
-                      title={event.event_title}
-                      subtitle={
-                        event.emission?._emission_code_name
-                          ? event.emission?._emission_code_name
-                          : ""
-                      }
-                      color='#f0f'
-                      openModal={() => console.log(formatToYYYYMMDD(day))}
-                    ></CardEvent>
-                  ))}
+                  data.data[day]?.events.map(
+                    (event: any, index_event: number) => (
+                      <CardEvent
+                        key={`card_event_${index_event}_${index}`}
+                        title={event.event_title}
+                        subtitle={
+                          event.emission?._emission_code_name
+                            ? event.emission?._emission_code_name
+                            : ""
+                        }
+                        color='#f0f'
+                        openModal={() => console.log(formatToYYYYMMDD(day))}
+                      ></CardEvent>
+                    )
+                  )}
+                {data.data[day]?.quantity_left > 0 && (
+                  <a
+                    href='#'
+                    target='_blank'
+                    className='font-bold text-xs text-brand transition-opacity hover:opacity-50'
+                  >
+                    {data.data[day]?.quantity_left} mais...
+                  </a>
+                )}
               </div>
             ) : (
               <div
                 className={cn(
-                  "w-auto box-border  animate-pulse border border-stone-300 flex items-center justify-center",
+                  "w-auto box-border  animate-pulse flex items-center justify-center",
                   index % 2 === 0 ? "bg-stone-100" : ""
                 )}
                 style={{ height: "calc(100% - 36px)" }}
