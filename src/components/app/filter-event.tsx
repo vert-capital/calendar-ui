@@ -51,7 +51,6 @@ export const FilterEvents = ({
   };
 
   const onCheckedChange = (e: boolean, id: number) => {
-    console.log("fui chamado", e, id);
     if (e) setChecked((prevChecked) => [...prevChecked, id]);
     else
       setChecked((prevChecked) => prevChecked.filter((value) => value != id));

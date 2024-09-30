@@ -84,7 +84,6 @@ const DatePicker = ({
 
   // Função para selecionar uma semana
   const handleWeekClick = (week: Date[]) => {
-    console.log("🚀 ~ handleWeekClick ~ week:", week);
     setSelectedWeek(week);
     valueSelect([week[0], week[6]]);
   };
