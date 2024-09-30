@@ -1,21 +1,53 @@
-import { Card } from "@/components/ui/card";
+import { useEffect, useState } from "react";
+import { DatePickerWeek, FilterEvents, TableWeek } from ".";
 
-export const Calendar = () => {
-  const date = new Date().toLocaleDateString("pt-BR");
+interface IProps {
+  searchParams: URLSearchParams;
+  setSearchParams: Function;
+  res: any;
+  startDate?: string;
+}
+
+export const CalendarEventsWeek = ({
+  searchParams,
+  setSearchParams,
+  res,
+  startDate,
+}: IProps) => {
+  const [valueDatePikerWeek, setValueDatePikerWeek] = useState<{
+    start: string;
+    end: string;
+  }>({ start: "", end: "" });
+
+  const [dataCalendar, setDataCalendar] = useState<any>([]);
+
+  useEffect(() => {
+    setDataCalendar(res);
+  }, []);
 
   return (
-    <Card>
-      <div className='flex'>
-        <h3 className='text-xl font-bold'>Calendário de Eventos</h3>
-        <span className='rounded-full bg-stone-200 text-slate-950 px-2 mx-2 text-sm flex items-center'>
-          Data de referência: {date}
-        </span>
+    <>
+      <div className='grid grid-cols-5 gap-4'>
+        <div className='xl:col-span-1 col-span-5'>
+          <FilterEvents
+            eventList={dataCalendar.results}
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
+        </div>
+        <section className='xl:col-span-4 col-span-5'>
+          <div className='mb-4'>
+            <DatePickerWeek
+              valueSelect={(value) => setValueDatePikerWeek(value)}
+              startDate={startDate}
+            ></DatePickerWeek>
+          </div>
+          <TableWeek start={valueDatePikerWeek.start} data={dataCalendar} />
+        </section>
       </div>
-      <hr className='border-[1.5px] my-5' />
-      <div className='grid grid-cols-12 gap-4'>
-        <aside className='col-span-4'>teste</aside>
-        <section className='col-span-8'>conteudo principal</section>
-      </div>
-    </Card>
+      <span className='mb-4'>
+        valor datePicker: {valueDatePikerWeek.start} - {valueDatePikerWeek.end}
+      </span>
+    </>
   );
 };
