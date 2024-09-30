@@ -68,7 +68,7 @@ export const TableWeek = ({ data, start, isLoading = false }: IProps) => {
                             ? event.emission?._emission_code_name
                             : ""
                         }
-                        color='#f0f'
+                        color={event.event_type?.color}
                         openModal={() => console.log(formatToYYYYMMDD(day))}
                       ></CardEvent>
                     )
