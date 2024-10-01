@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@vert-capital/design-system-ui':
-    specifier: ^1.0.15
-    version: 1.0.16(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^1.0.22
+    version: 1.0.22(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1)
   autoprefixer:
     specifier: ^10.4.20
     version: 10.4.20(postcss@8.4.45)
@@ -240,6 +240,14 @@ packages:
       '@babel/core': 7.25.2
       '@babel/helper-plugin-utils': 7.24.8
     dev: true
+
+  /@babel/runtime-corejs3@7.25.6:
+    resolution: {integrity: sha512-Gz0Nrobx8szge6kQQ5Z5MX9L3ObqNwCQY1PSwSNzreFL7aHGxv8Fp2j3ETV6/wWdbiV+mW6OSm8oQhg3Tcsniw==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      core-js-pure: 3.38.1
+      regenerator-runtime: 0.14.1
+    dev: false
 
   /@babel/runtime@7.25.6:
     resolution: {integrity: sha512-VBj9MYyDb9tuLq7yzqjgzt6Q+IBQLrGZfdjOekyEirZPHxXWoTSGUTMrpsfi58Up73d13NfYLv8HT9vmznjzhQ==}
@@ -2459,8 +2467,8 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@vert-capital/design-system-ui@1.0.16(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-lfIuoJQ+rVyHP3GZPQVmLw9XPNQZRw45gpxh3H0QzhwlXkG+JPeJtZhTXCccltbrNRzCsiVdErI2JoHZwHyGPg==}
+  /@vert-capital/design-system-ui@1.0.22(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-VKmfgzmM1XnJNHPVESd4VLkx7hMTLCZ58VY2lOIh01Oc2Q20HxIxRP9qDZsZvEpneUrYdALqEHmwvbHEpNg89w==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
@@ -2504,6 +2512,7 @@ packages:
       react-day-picker: 8.9.1(date-fns@2.30.0)(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
       react-hook-form: 7.53.0(react@18.3.1)
+      react-imask: 7.6.1(react@18.3.1)
       react-resizable-panels: 1.0.10(react-dom@18.3.1)(react@18.3.1)
       sonner: 1.5.0(react-dom@18.3.1)(react@18.3.1)
       tailwind-merge: 2.5.2
@@ -2895,6 +2904,11 @@ packages:
 
   /convert-source-map@2.0.0:
     resolution: {integrity: sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==}
+
+  /core-js-pure@3.38.1:
+    resolution: {integrity: sha512-BY8Etc1FZqdw1glX0XNOq2FDwfrg/VGqoZOZCdaL+UmdaqDwQwYXkMJT4t6In+zfEfOJDcM9T0KdbBeJg8KKCQ==}
+    requiresBuild: true
+    dev: false
 
   /cross-spawn@7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
@@ -3326,6 +3340,13 @@ packages:
     resolution: {integrity: sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==}
     engines: {node: '>= 4'}
     dev: true
+
+  /imask@7.6.1:
+    resolution: {integrity: sha512-sJlIFM7eathUEMChTh9Mrfw/IgiWgJqBKq2VNbyXvBZ7ev/IlO6/KQTKlV/Fm+viQMLrFLG/zCuudrLIwgK2dg==}
+    engines: {npm: '>=4.0.0'}
+    dependencies:
+      '@babel/runtime-corejs3': 7.25.6
+    dev: false
 
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
@@ -3883,6 +3904,14 @@ packages:
     engines: {node: '>= 0.8.0'}
     dev: true
 
+  /prop-types@15.8.1:
+    resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react-is: 16.13.1
+    dev: false
+
   /punycode@2.3.1:
     resolution: {integrity: sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==}
     engines: {node: '>=6'}
@@ -3918,6 +3947,21 @@ packages:
       react: ^16.8.0 || ^17 || ^18 || ^19
     dependencies:
       react: 18.3.1
+    dev: false
+
+  /react-imask@7.6.1(react@18.3.1):
+    resolution: {integrity: sha512-vLNfzcCz62Yzx/GRGh5tiCph9Gbh2cZu+Tz8OiO5it2eNuuhpA0DWhhSlOtVtSJ80+Bx+vFK5De8eQ9AmbkXzA==}
+    engines: {npm: '>=4.0.0'}
+    peerDependencies:
+      react: '>=0.14.0'
+    dependencies:
+      imask: 7.6.1
+      prop-types: 15.8.1
+      react: 18.3.1
+    dev: false
+
+  /react-is@16.13.1:
+    resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
     dev: false
 
   /react-refresh@0.14.2:

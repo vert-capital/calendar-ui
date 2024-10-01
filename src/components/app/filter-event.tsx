@@ -1,6 +1,13 @@
 // import { useSearchParams } from '@remix-run/react';
-import { CheckBoxBasic } from "@vert-capital/design-system-ui";
+import {
+  CheckBoxBasic,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@vert-capital/design-system-ui";
 import { useEffect, useState } from "react";
+import { Icons } from "@vert-capital/design-system-ui";
 
 interface IEvent {
   id: number;
@@ -63,8 +70,24 @@ export const FilterEvents = ({
             key={index}
             checked={checked.includes(event.id)}
             onCheckedChange={(e: boolean) => onCheckedChange(e, event.id)}
-            label={event.name_display}
-          ></CheckBoxBasic>
+            classNameLabel='flex items-center justify-start cursor-pointer'
+          >
+            <span style={{ color: `${event.color}` }}>
+              {event.name_display}
+            </span>
+            {event.info && (
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Icons.Info className='w-4 h-4 ml-2 text-brand' />
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>{event.info}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+            )}
+          </CheckBoxBasic>
         ))}
     </div>
   );
