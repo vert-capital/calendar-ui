@@ -38,6 +38,7 @@ export const getWeekInMonthSelected = (day: Date): Date[] => {
   return week;
 };
 
+export const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 interface IProps {
   week?: Date;
   valueSelect: (n: any) => void;
@@ -91,8 +92,6 @@ const DatePicker = ({
   const nameMonth = currentMonth.toLocaleString("default", { month: "long" });
 
   const today = new Date();
-
-  const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
   return (
     <div className='w-fit absolute rounded shadow bg-white px-4 py-2 border-stone-200 border'>
