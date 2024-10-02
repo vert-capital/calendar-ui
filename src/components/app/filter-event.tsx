@@ -71,10 +71,15 @@ export const FilterEvents = ({
             checked={checked.includes(event.id)}
             onCheckedChange={(e: boolean) => onCheckedChange(e, event.id)}
             classNameLabel='flex items-center justify-start cursor-pointer'
+            id={`event_${index}`}
           >
-            <span style={{ color: `${event.color}` }}>
+            <label
+              htmlFor={`event_${index}`}
+              className='cursor-pointer'
+              style={{ color: `${event.color}` }}
+            >
               {event.name_display}
-            </span>
+            </label>
             {event.info && (
               <TooltipProvider>
                 <Tooltip>

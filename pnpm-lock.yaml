@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@vert-capital/design-system-ui':
-    specifier: ^1.0.22
-    version: 1.0.22(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1)
+    specifier: ^1.0.23
+    version: 1.0.23(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1)
   autoprefixer:
     specifier: ^10.4.20
     version: 10.4.20(postcss@8.4.45)
@@ -2467,8 +2467,8 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@vert-capital/design-system-ui@1.0.22(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-VKmfgzmM1XnJNHPVESd4VLkx7hMTLCZ58VY2lOIh01Oc2Q20HxIxRP9qDZsZvEpneUrYdALqEHmwvbHEpNg89w==}
+  /@vert-capital/design-system-ui@1.0.23(@types/react-dom@18.3.0)(@types/react@18.3.5)(next@14.2.13)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-fSRCRZS1O5neOCxGP7KMyuVtRqEHmv4FWNWS8oN+/e4Jg8hRcuuhsvkg3fIkePuZDQoCEMOGoehS2v9j/bZMSQ==}
     peerDependencies:
       react: ^18.2.0
       react-dom: ^18.2.0
