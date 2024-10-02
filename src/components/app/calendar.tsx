@@ -6,6 +6,12 @@ interface IProps {
   setSearchParams: Function;
   res: any;
   startDate?: string;
+  access: {
+    ops: string;
+    obligation: string;
+    calendar_event: string;
+    token: string;
+  };
 }
 
 export const CalendarEventsWeek = ({
@@ -13,6 +19,7 @@ export const CalendarEventsWeek = ({
   setSearchParams,
   res,
   startDate,
+  access,
 }: IProps) => {
   const [valueDatePikerWeek, setValueDatePikerWeek] = useState<{
     start: string;
@@ -42,7 +49,11 @@ export const CalendarEventsWeek = ({
               startDate={startDate}
             ></DatePickerWeek>
           </div>
-          <TableWeek start={valueDatePikerWeek.start} data={dataCalendar} />
+          <TableWeek
+            start={valueDatePikerWeek.start}
+            data={dataCalendar}
+            access={access}
+          />
         </section>
       </div>
       <span className='mb-4'>

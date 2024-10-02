@@ -42,6 +42,12 @@ export class Event {
     slug: string;
     name: string;
   };
+  url: {
+    ops: string;
+    obligation: string;
+    calendar_event: string;
+    token: string;
+  };
 
   constructor(data: any) {
     this.id = data.id;
@@ -53,6 +59,7 @@ export class Event {
     this.series = data.series;
     this.json = data.json;
     this.application = data.application;
+    this.url = data.urls;
   }
   get color(): string {
     return this.event_type?.color;
@@ -125,6 +132,9 @@ export class Event {
   get status(): string {
     return this.json?.status;
   }
+  get application_name(): string {
+    return this.application?.name;
+  }
   getInitials(name: string): string {
     if (!name) return "";
     const name2 = name
@@ -136,12 +146,10 @@ export class Event {
   get link_blank(): string {
     if (this.application?.slug === "ops") {
       return (
-        import.meta.env.VITE_OPS_URL +
-        "/patrimony/" +
-        this.patrimony?.external_patrimony_id
+        this.url.ops + "/patrimony/" + this.patrimony?.external_patrimony_id
       );
     } else if (this.application?.slug === "obligation") {
-      return import.meta.env.VITE_OBRIGACOES_URL;
+      return this.url.obligation;
     }
 
     return "";

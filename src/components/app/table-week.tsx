@@ -7,10 +7,21 @@ import { useState } from "react";
 interface IProps {
   data: any;
   start: string;
+  access: {
+    ops: string;
+    obligation: string;
+    calendar_event: string;
+    token: string;
+  };
   isLoading?: boolean;
 }
 
-export const TableWeek = ({ data, start, isLoading = false }: IProps) => {
+export const TableWeek = ({
+  data,
+  start,
+  isLoading = false,
+  access,
+}: IProps) => {
   enum WeekDays {
     "Dom." = 0,
     "Seg." = 1,
@@ -110,6 +121,7 @@ export const TableWeek = ({ data, start, isLoading = false }: IProps) => {
         isOpen={isOpenModal}
         setIsOpen={setIsOpenModal}
         data={dataDetails}
+        urls={access}
       />
     </>
   );

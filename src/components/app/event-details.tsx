@@ -15,10 +15,16 @@ interface IProps {
   data: any;
   isOpen: boolean;
   setIsOpen: Function;
+  urls: {
+    ops: string;
+    obligation: string;
+    calendar_event: string;
+    token: string;
+  };
 }
 
-export function EventDetails({ data, isOpen, setIsOpen }: IProps) {
-  const event = new Event(data);
+export function EventDetails({ data, isOpen, setIsOpen, urls }: IProps) {
+  const event = new Event({ ...data, urls });
   const handleClose = () => setIsOpen(false);
 
   enum EStatus {
@@ -71,7 +77,7 @@ export function EventDetails({ data, isOpen, setIsOpen }: IProps) {
               className='text-sm flex gap-1 items-center text-brand hover:opacity-50 transition-opacity'
             >
               <Icons.ExternalLink className='w-4 h-4 mr-1' />
-              Ver no Ops
+              Ver no {event.application_name}
             </a>
             <div className='flex gap-1 items-center'>
               <Icons.Clock className='w-4 h-4 mr-1' />
