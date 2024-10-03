@@ -48,6 +48,7 @@ export class Event {
     calendar_event: string;
     token: string;
   };
+  obligation?: number;
 
   constructor(data: any) {
     this.id = data.id;
@@ -60,6 +61,7 @@ export class Event {
     this.json = data.json;
     this.application = data.application;
     this.url = data.urls;
+    this.obligation = data.obligation;
   }
   get color(): string {
     return this.event_type?.color;
