@@ -91,7 +91,7 @@ const DatePicker = ({
 
   const nameMonth = currentMonth.toLocaleString("default", { month: "long" });
 
-  const today = new Date();
+  const today = new Date(new Date().setHours(0, 0, 0, 0));
 
   return (
     <div className='w-fit absolute rounded shadow bg-white px-4 py-2 border-stone-200 border'>
@@ -140,7 +140,6 @@ const DatePicker = ({
                 : ""
             }`}
           >
-            {selectedWeek && selectedWeek[0].getTime() === week[0].getTime()}
             {week.map((day, index) => (
               <div
                 key={day.toString()}

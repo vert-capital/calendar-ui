@@ -51,7 +51,9 @@ export const DatePickerWeek = ({
   };
 
   const setToday = () => {
-    setSelectedWeek(getWeekInMonthSelected(new Date()));
+    setSelectedWeek(
+      getWeekInMonthSelected(new Date(new Date().setHours(0, 0, 0, 0)))
+    );
   };
 
   useEffect(() => {
