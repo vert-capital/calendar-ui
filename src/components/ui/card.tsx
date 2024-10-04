@@ -1,13 +1,16 @@
 import React from "react";
 
-const Card = React.forwardRef<HTMLDivElement, { children: React.ReactNode }>(
-    ({ children }, ref) => {
-        return (
-        <div ref={ref} className="bg-white shadow-md rounded-lg p-6">
-            {children}
-        </div>
-        );
-    }
-    );
+import { cn } from "@/lib";
 
-export default Card;
+type Props = {
+  children: React.ReactNode;
+  className?: string;
+};
+
+export const Card = ({ children, className }: Props) => {
+  return (
+    <div className={cn("bg-white shadow-md rounded-lg p-6", className)}>
+      {children}
+    </div>
+  );
+};
