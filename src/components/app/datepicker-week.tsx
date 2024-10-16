@@ -8,11 +8,15 @@ import { Button, Icons } from "@vert-capital/design-system-ui";
 
 interface IProps {
   valueSelect: (n: any) => void;
+  setSearchParams: Function;
+  searchParams: URLSearchParams;
   startDate?: string;
 }
 
 export const DatePickerWeek = ({
   valueSelect,
+  setSearchParams,
+  searchParams,
   startDate = new Date().toISOString().split("T")[0],
 }: IProps) => {
   const [isShow, setIsShow] = useState(false);
@@ -56,12 +60,34 @@ export const DatePickerWeek = ({
     );
   };
 
+  const applyFilter = () => {
+    const newSearchParams = new URLSearchParams();
+    for (const [key, value] of searchParams.entries()) {
+      newSearchParams.set(key, value);
+      if (key === "event_data_before" || key === "event_data_after") {
+        newSearchParams.delete(key);
+      }
+    }
+    if (selectedWeek) {
+      newSearchParams.set(
+        "event_data_before",
+        formatToYYYYMMDD(selectedWeek[6])
+      );
+      newSearchParams.set(
+        "event_data_after",
+        formatToYYYYMMDD(selectedWeek[0])
+      );
+    }
+    setSearchParams(newSearchParams);
+  };
+
   useEffect(() => {
     if (selectedWeek)
       valueSelect({
         start: formatToYYYYMMDD(selectedWeek[0]),
         end: formatToYYYYMMDD(selectedWeek[6]),
       });
+    applyFilter();
   }, [selectedWeek]);
 
   return (

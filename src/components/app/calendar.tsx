@@ -12,6 +12,7 @@ interface IProps {
     calendar_event: string;
     token: string;
   };
+  ambiente?: "dev" | "prod" | "homolog" | "qa";
 }
 
 export const CalendarEventsWeek = ({
@@ -20,12 +21,13 @@ export const CalendarEventsWeek = ({
   res,
   startDate,
   access,
+  ambiente = "dev",
 }: IProps) => {
   const [valueDatePikerWeek, setValueDatePikerWeek] = useState<{
     start: string;
     end: string;
   }>({ start: "", end: "" });
-
+  console.log(ambiente);
   const [dataCalendar, setDataCalendar] = useState<any>([]);
 
   useEffect(() => {
@@ -46,6 +48,8 @@ export const CalendarEventsWeek = ({
           <div className='mb-4'>
             <DatePickerWeek
               valueSelect={(value) => setValueDatePikerWeek(value)}
+              setSearchParams={setSearchParams}
+              searchParams={searchParams}
               startDate={startDate}
             ></DatePickerWeek>
           </div>

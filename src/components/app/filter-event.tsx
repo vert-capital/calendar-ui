@@ -48,8 +48,11 @@ export const FilterEvents = ({
 
   const applyFilter = () => {
     const newSearchParams = new URLSearchParams();
-    for (const key of searchParams.keys()) {
-      newSearchParams.delete(key);
+    for (const [key, value] of searchParams.entries()) {
+      newSearchParams.set(key, value);
+      if (key === "event_type") {
+        newSearchParams.delete(key);
+      }
     }
     if (checked.length > 0) {
       newSearchParams.set("event_type", checked.join(","));
