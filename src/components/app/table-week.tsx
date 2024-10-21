@@ -1,7 +1,6 @@
-import { cn } from "@/lib";
 import { CardEvent, EventDetails } from ".";
 import { getWeekInMonthSelected } from "../ui/datepicker/date";
-import { Icons } from "@vert-capital/design-system-ui";
+import { Icons, cn } from "@vert-capital/design-system-ui";
 import { useState } from "react";
 
 interface IProps {

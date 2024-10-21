@@ -1,6 +1,5 @@
+import { cn } from "@vert-capital/design-system-ui";
 import React from "react";
-
-import { cn } from "@/lib";
 
 type Props = {
   children: React.ReactNode;
