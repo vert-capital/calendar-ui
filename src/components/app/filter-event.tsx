@@ -19,45 +19,32 @@ interface IEvent {
 
 interface IProps {
   eventList: IEvent[];
-  searchParams: URLSearchParams;
-  setSearchParams: Function;
+  searchParams: string;
+  valueSelect: (n: any) => void;
 }
 
 export const FilterEvents = ({
   eventList,
   searchParams,
-  setSearchParams,
+  valueSelect,
 }: IProps) => {
   const [checked, setChecked] = useState([] as number[]);
 
   useEffect(() => {
-    [checked];
-    applyFilter();
+    const checkedString = checked.join(",");
+    if (searchParams === checkedString) return;
+    valueSelect({
+      eventType: checkedString,
+    });
   }, [checked]);
 
   useEffect(() => {
     populated();
-  }, []);
+  }, [searchParams]);
 
   const populated = () => {
-    const eventType = searchParams.get("event_type");
-    if (eventType) {
-      setChecked(eventType.split(",").map((item: any) => parseInt(item)));
-    }
-  };
-
-  const applyFilter = () => {
-    const newSearchParams = new URLSearchParams();
-    for (const [key, value] of searchParams.entries()) {
-      newSearchParams.set(key, value);
-      if (key === "event_type") {
-        newSearchParams.delete(key);
-      }
-    }
-    if (checked.length > 0) {
-      newSearchParams.set("event_type", checked.join(","));
-    }
-    setSearchParams(newSearchParams);
+    if (!searchParams || searchParams === checked.join(",")) return;
+    setChecked(searchParams.split(",").map(Number));
   };
 
   const onCheckedChange = (e: boolean, id: number) => {

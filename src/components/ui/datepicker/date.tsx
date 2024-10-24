@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { getWeeksInMonth, turnToLastSunday } from "./matriz";
+import { getWeeksInMonth } from "./matriz";
 import { Icons } from "@vert-capital/design-system-ui";
+import { getWeekInMonthSelected } from "@/common/index";
 
 // Função para formatar a data no formato desejado (exemplo: 'dd/MM')
 const formatDate = (date: Date): string => {
@@ -21,21 +22,6 @@ export const getStartEndDay = (date: Date): Date[] => {
   const start = getWeekInMonthSelected(date)[0];
   const end = getWeekInMonthSelected(date)[6];
   return [start, end];
-};
-
-export const getWeekInMonthSelected = (day: Date): Date[] => {
-  if (day.getDay() != 0) {
-    day.setDate(turnToLastSunday(day));
-  }
-  const start = day;
-  const week: Date[] = [];
-
-  for (let i = 0; i < 7; i++) {
-    week.push(new Date(start));
-    start.setDate(start.getDate() + 1);
-  }
-
-  return week;
 };
 
 export const weekDays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
