@@ -34,7 +34,7 @@ export const DatePickerWeek = ({
 
   const nextWeek = () => {
     if (selectedWeek) {
-      const next = new Date(selectedWeek[6]);
+      const next = new Date(new Date(selectedWeek[6]).setHours(0, 0, 0, 0));
       next.setDate(next.getDate() + 1);
       const week = getWeekInMonthSelected(next);
       setValueSelect(week);
@@ -43,7 +43,7 @@ export const DatePickerWeek = ({
 
   const prevWeek = () => {
     if (selectedWeek) {
-      const prev = new Date(selectedWeek[0]);
+      const prev = new Date(new Date(selectedWeek[0]).setHours(0, 0, 0, 0));
       prev.setDate(prev.getDate() - 1);
       const week = getWeekInMonthSelected(prev);
       setValueSelect(week);
