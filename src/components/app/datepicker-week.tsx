@@ -1,8 +1,8 @@
 import { useState } from "react";
 import DatePicker, { formatDateToDDdeMM } from "../ui/datepicker/date";
-import { formatToYYYYMMDD } from "../ui/datepicker/matriz";
 import { Button, Icons } from "@vert-capital/design-system-ui";
 import { getWeekInMonthSelected } from "@/common/index";
+import { dateOutput } from "@vert-capital/common";
 
 interface IProps {
   valueSelect: (n: any) => void;
@@ -60,8 +60,8 @@ export const DatePickerWeek = ({
   const setValueSelect = (week: Date[]) => {
     setSelectedWeek(week);
     valueSelect({
-      eventDataAfter: formatToYYYYMMDD(week[0]),
-      eventDataBefore: formatToYYYYMMDD(week[6]),
+      eventDataAfter: dateOutput(week[0]),
+      eventDataBefore: dateOutput(week[6]),
     });
   };
 
@@ -106,8 +106,8 @@ export const DatePickerWeek = ({
               week={new Date(startDate)}
               valueSelect={(n) =>
                 valueSelect({
-                  event_data_after: formatToYYYYMMDD(n[0]),
-                  event_data_before: formatToYYYYMMDD(n[1]),
+                  event_data_after: dateOutput(n[0]),
+                  event_data_before: dateOutput(n[1]),
                 })
               }
               selectedWeek={selectedWeek}
