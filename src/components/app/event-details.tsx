@@ -12,7 +12,6 @@ import {
   dateDisplay,
 } from "@vert-capital/design-system-ui";
 import { useState } from "react";
-import { mock } from "./mock";
 import { weekDays } from "../ui/datepicker/date";
 
 interface IProps {
@@ -88,17 +87,17 @@ export function EventDetails({ data, isOpen, setIsOpen, urls }: IProps) {
               <div className='flex gap-1 items-center'>
                 <Icons.Clock className='w-4 h-4 mr-1' />
                 <span>{event.day_date}</span>
-                {event.obligation && (
+                {/* {event.obligation && (
                   <div
                     className='text-brand items-center ml-4 flex transition-opacity hover:opacity-50 cursor-pointer'
                     onClick={() => setIsRecurrence(true)}
                   >
                     <Icons.CopyCheck className='w-4 h-4 mr-1' />
                     <span className='underline text-sm'>
-                      Mostrar todas as recorrencisa
+                      Mostrar todas as recorrencias
                     </span>
                   </div>
-                )}
+                )} */}
               </div>
 
               <h3>Acompanhamento</h3>
@@ -169,6 +168,14 @@ const Recorrence = () => {
     const month = toDate(date).toLocaleString("pr-br", { month: "long" });
     return month.charAt(0).toUpperCase() + month.slice(1, 3);
   };
+  // ToDo
+  const mock = [
+    {
+      due_date: "2022-01-01",
+      title: "Evento 1",
+      status: "Pendente",
+    },
+  ];
   return (
     <div className='flex flex-col gap-4 max-h-[500px] overflow-y-auto'>
       {mock.map((item, index) => (

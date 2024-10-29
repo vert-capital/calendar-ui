@@ -19,13 +19,11 @@ export const CalendarEventsWeek = ({
   res,
   startDate,
   access,
-  ambiente = "dev",
 }: IProps) => {
   const [valueDatePikerWeek, setValueDatePikerWeek] = useState<{
     start: string;
     end: string;
   }>({ start: "", end: "" });
-  console.log(ambiente);
   const [dataCalendar, setDataCalendar] = useState<any>([]);
 
   useEffect(() => {
