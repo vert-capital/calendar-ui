@@ -10,7 +10,6 @@ interface IProps {
     ops: string;
     obligation: string;
     calendar_event: string;
-    token: string;
   };
   isLoading?: boolean;
 }
@@ -96,7 +95,7 @@ export const TableWeek = ({
                     ))}
                   {data[day]?.quantity_left > 0 && (
                     <a
-                      href='#'
+                      href={`${access.calendar_event}/?vision=day`}
                       target='_blank'
                       className='font-bold text-xs text-brand transition-opacity hover:opacity-50'
                     >

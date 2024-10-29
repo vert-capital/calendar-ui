@@ -22,7 +22,6 @@ interface IProps {
     ops: string;
     obligation: string;
     calendar_event: string;
-    token: string;
   };
 }
 export enum EStatus {
