@@ -25,7 +25,7 @@ enum WeekDays {
 
 export const TableWeek = ({
   data,
-  start,
+  start = new Date().toISOString().split("T")[0],
   isLoading = false,
   access,
 }: IProps) => {

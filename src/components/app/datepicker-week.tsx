@@ -15,7 +15,7 @@ export const DatePickerWeek = ({
 }: IProps) => {
   const [isShow, setIsShow] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState<Date[] | null>(
-    getWeekInMonthSelected(new Date(startDate))
+    getWeekInMonthSelected(new Date(startDate + "T00:00:00"))
   );
 
   const textDate = () => {
