@@ -1,10 +1,8 @@
-import { useEffect, useState } from "react";
-import DatePicker, {
-  formatDateToDDdeMM,
-  getWeekInMonthSelected,
-} from "../ui/datepicker/date";
-import { formatToYYYYMMDD } from "../ui/datepicker/matriz";
+import { useState } from "react";
+import DatePicker, { formatDateToDDdeMM } from "../ui/datepicker/date";
 import { Button, Icons } from "@vert-capital/design-system-ui";
+import { getWeekInMonthSelected } from "@/common/index";
+import { dateOutput } from "@vert-capital/common";
 
 interface IProps {
   valueSelect: (n: any) => void;
@@ -17,7 +15,7 @@ export const DatePickerWeek = ({
 }: IProps) => {
   const [isShow, setIsShow] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState<Date[] | null>(
-    getWeekInMonthSelected(new Date(startDate))
+    getWeekInMonthSelected(new Date(startDate + "T00:00:00"))
   );
 
   const textDate = () => {
@@ -36,70 +34,82 @@ export const DatePickerWeek = ({
 
   const nextWeek = () => {
     if (selectedWeek) {
-      const next = new Date(selectedWeek[6]);
+      const next = new Date(new Date(selectedWeek[6]).setHours(0, 0, 0, 0));
       next.setDate(next.getDate() + 1);
-      setSelectedWeek(getWeekInMonthSelected(next));
+      const week = getWeekInMonthSelected(next);
+      setValueSelect(week);
     }
   };
 
   const prevWeek = () => {
     if (selectedWeek) {
-      const prev = new Date(selectedWeek[0]);
+      const prev = new Date(new Date(selectedWeek[0]).setHours(0, 0, 0, 0));
       prev.setDate(prev.getDate() - 1);
-      setSelectedWeek(getWeekInMonthSelected(prev));
+      const week = getWeekInMonthSelected(prev);
+      setValueSelect(week);
     }
   };
 
   const setToday = () => {
-    setSelectedWeek(
-      getWeekInMonthSelected(new Date(new Date().setHours(0, 0, 0, 0)))
+    const week = getWeekInMonthSelected(
+      new Date(new Date().setHours(0, 0, 0, 0))
     );
+    setValueSelect(week);
   };
 
-  useEffect(() => {
-    if (selectedWeek)
-      valueSelect({
-        start: formatToYYYYMMDD(selectedWeek[0]),
-        end: formatToYYYYMMDD(selectedWeek[6]),
-      });
-  }, [selectedWeek]);
+  const setValueSelect = (week: Date[]) => {
+    setSelectedWeek(week);
+    valueSelect({
+      eventDataAfter: dateOutput(week[0]),
+      eventDataBefore: dateOutput(week[6]),
+    });
+  };
 
   return (
     <div className='flex items-center gap-4'>
       <div>
-        <Button variant={"outline"} onClick={setToday}>
+        <Button variant={"outline"} onClick={setToday} type='button'>
           Hoje
         </Button>
       </div>
-      <div className='h-auto flex items-center'>
+      <div className='h-auto flex items-center relative'>
         <button
           className='px-4 font-bold text-brand cursor-pointer hover:opacity-70'
           onClick={prevWeek}
+          type='button'
         >
           <Icons.ChevronLeft className='w-4' />
         </button>
         <button
           className='px-4 font-bold text-brand cursor-pointer hover:opacity-70'
           onClick={nextWeek}
+          type='button'
         >
           <Icons.ChevronRight className='w-4' />
         </button>
         <button
           className='font-bold relative hover:opacity-70 flex items-center'
           onClick={() => setIsShow(!isShow)}
+          type='button'
         >
           <span className='mr-3'>{textDate()} </span>
           <Icons.ChevronDown className='text-brand w-4' />
         </button>
         {isShow && (
           <>
-            <div
+            <button
               className='fixed w-screen h-full top-0 left-0'
               onClick={() => setIsShow(!isShow)}
-            ></div>
+              type='button'
+            ></button>
             <DatePicker
               week={new Date(startDate)}
-              valueSelect={(n) => console.log(n)}
+              valueSelect={(n) =>
+                valueSelect({
+                  event_data_after: dateOutput(n[0]),
+                  event_data_before: dateOutput(n[1]),
+                })
+              }
               selectedWeek={selectedWeek}
               setSelectedWeek={setSelectedWeek}
             />

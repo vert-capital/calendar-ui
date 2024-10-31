@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { DatePickerWeek, FilterEvents, TableWeek } from ".";
 
 interface IProps {
-  searchParams: URLSearchParams;
-  setSearchParams: Function;
+  searchParams: string;
   res: any;
   startDate?: string;
   access: {
@@ -12,11 +11,11 @@ interface IProps {
     calendar_event: string;
     token: string;
   };
+  ambiente?: "dev" | "prod" | "homolog" | "qa";
 }
 
 export const CalendarEventsWeek = ({
   searchParams,
-  setSearchParams,
   res,
   startDate,
   access,
@@ -25,12 +24,13 @@ export const CalendarEventsWeek = ({
     start: string;
     end: string;
   }>({ start: "", end: "" });
-
   const [dataCalendar, setDataCalendar] = useState<any>([]);
 
   useEffect(() => {
     setDataCalendar(res);
   }, []);
+
+  // ToDo - Refactor this code to use the new DatePickerWeek component
 
   return (
     <>
@@ -39,7 +39,7 @@ export const CalendarEventsWeek = ({
           <FilterEvents
             eventList={dataCalendar.results}
             searchParams={searchParams}
-            setSearchParams={setSearchParams}
+            valueSelect={(n: any) => console.log(n)}
           />
         </div>
         <section className='xl:col-span-4 col-span-5'>

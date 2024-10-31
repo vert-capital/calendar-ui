@@ -1,8 +1,7 @@
-import { cn } from "@/lib";
+import { getWeekInMonthSelected } from "@/common/index";
 import { CardEvent, EventDetails } from ".";
-import { getWeekInMonthSelected } from "../ui/datepicker/date";
-import { Icons } from "@vert-capital/design-system-ui";
-import { useState } from "react";
+import { Icons, cn } from "@vert-capital/design-system-ui";
+import { useEffect, useState } from "react";
 
 interface IProps {
   data: any;
@@ -11,30 +10,32 @@ interface IProps {
     ops: string;
     obligation: string;
     calendar_event: string;
-    token: string;
   };
   isLoading?: boolean;
+}
+enum WeekDays {
+  "Dom." = 0,
+  "Seg." = 1,
+  "Ter." = 2,
+  "Qua." = 3,
+  "Qui." = 4,
+  "Sex." = 5,
+  "Sab." = 6,
 }
 
 export const TableWeek = ({
   data,
-  start,
+  start = new Date().toISOString().split("T")[0],
   isLoading = false,
   access,
 }: IProps) => {
-  enum WeekDays {
-    "Dom." = 0,
-    "Seg." = 1,
-    "Ter." = 2,
-    "Qua." = 3,
-    "Qui." = 4,
-    "Sex." = 5,
-    "Sab." = 6,
-  }
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [dataDetails, setDataDetails] = useState<any>({});
+  const [contentKey, setContentKey] = useState(0);
 
   const getWeekDaysString = () => {
     const days: any[] = [];
-    const weekDaysData = getWeekInMonthSelected(new Date(start + " 00:00:00"));
+    const weekDaysData = getWeekInMonthSelected(new Date(start + "T00:00:00"));
 
     weekDaysData.forEach((i: Date) => {
       const x =
@@ -51,17 +52,19 @@ export const TableWeek = ({
   const weekDaysString = getWeekDaysString();
 
   const getDay = (date: string): string => date.split("-")[2];
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [dataDetails, setDataDetails] = useState<any>({});
 
   const showModal = (data: any) => {
     setDataDetails(data);
     setIsOpenModal(true);
   };
 
+  useEffect(() => {
+    setContentKey((prevKey) => prevKey + 1);
+  }, [data]);
+
   return (
     <>
-      <div className='overflow-x-auto overflow-y-hidden'>
+      <div className='overflow-x-auto overflow-y-hidden' key={contentKey}>
         <div className='grid grid-cols-7 min-w-[920px] min-h-[590px]  border-b-2 border-stone-200'>
           {weekDaysString.map((day: any, index) => (
             <div
@@ -71,34 +74,32 @@ export const TableWeek = ({
               <div className='font-bold text-xs text-brand text-left bg-brand-extra_light border-2 border-brand-extra_light p-2'>
                 {getDay(day) + " " + WeekDays[index]}
               </div>
-              {data.data && !isLoading ? (
+              {data && !isLoading ? (
                 <div
                   className='p-2 flex flex-col gap-2'
                   style={{ height: "calc(100% - 36px)" }}
                 >
-                  {data.data[day]?.events &&
-                    data.data[day]?.events.map(
-                      (event: any, index_event: number) => (
-                        <CardEvent
-                          key={`card_event_${index_event}_${index}`}
-                          title={event.event_title}
-                          subtitle={
-                            event.emission?._emission_code_name
-                              ? event.emission?._emission_code_name
-                              : ""
-                          }
-                          color={event.event_type?.color}
-                          openModal={() => showModal(event)}
-                        ></CardEvent>
-                      )
-                    )}
-                  {data.data[day]?.quantity_left > 0 && (
+                  {data[day]?.events &&
+                    data[day]?.events.map((event: any, index_event: number) => (
+                      <CardEvent
+                        key={`card_event_${index_event}_${index}`}
+                        title={event.event_title}
+                        subtitle={
+                          event.emission?._emission_code_name
+                            ? event.emission?._emission_code_name
+                            : ""
+                        }
+                        color={event.event_type?.color}
+                        openModal={() => showModal(event)}
+                      ></CardEvent>
+                    ))}
+                  {data[day]?.quantity_left > 0 && (
                     <a
-                      href='#'
+                      href={`${access.calendar_event}/?vision=day`}
                       target='_blank'
                       className='font-bold text-xs text-brand transition-opacity hover:opacity-50'
                     >
-                      {data.data[day]?.quantity_left} mais...
+                      {data[day]?.quantity_left} mais...
                     </a>
                   )}
                 </div>
