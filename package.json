@@ -10,7 +10,7 @@
   "moduleResolution": "node",
   "files": [
     "dist",
-    "tailwind.config.cjs"
+    "tailwind.base.config.cjs"
   ],
   "repository": {
     "type": "github",
