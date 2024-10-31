@@ -9,8 +9,13 @@
   "esModuleInterop": true,
   "moduleResolution": "node",
   "files": [
-    "dist"
+    "dist",
+    "tailwind.config.cjs"
   ],
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/vert-capital/calendar-ui"
+  },
   "scripts": {
     "dev": "vite build --watch",
     "dev-serve": "vite",
