@@ -139,9 +139,10 @@ export class Event {
   }
   getInitials(name: string): string {
     if (!name) return "";
+    name = name.replace(/  +/g, " ");
     const name2 = name
       .split(" ")
-      .map((n) => n[0])
+      .map((n, i) => (i <= 1 && n[0] ? n[0] : ""))
       .join("");
     return name2;
   }
