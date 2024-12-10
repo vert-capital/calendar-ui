@@ -43,7 +43,7 @@ export const TableWeek = ({
         "-" +
         (i.getMonth() < 9 ? "0" + (i.getMonth() + 1) : i.getMonth() + 1) +
         "-" +
-        (i.getDate() < 9 ? "0" + i.getDate() : i.getDate());
+        (i.getDate() <= 9 ? "0" + i.getDate() : i.getDate());
       days.push(x);
     });
     return days;
