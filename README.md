@@ -57,4 +57,5 @@ Run:
 
 In your prj to use run:
 -pnpm install ${/lib/route}
+OBS: the command "pnpm build --watch" prints the url to install in your project
 -obs: when the comment "pnpm link --global" is run the terminal returns the lib route
