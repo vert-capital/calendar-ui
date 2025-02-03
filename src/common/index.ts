@@ -11,6 +11,6 @@ export const getWeekInMonthSelected = (day: Date): Date[] => {
     week.push(new Date(start));
     start.setDate(start.getDate() + 1);
   }
-
+  // console.log(week);
   return week;
 };
