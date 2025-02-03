@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { WeekCalendarLine } from "./week-calendar-line";
 import { SelectGroupDate } from "./select-group-date";
 
@@ -11,15 +11,9 @@ export const MiniCalendar = (): JSX.Element => {
 
   const handleTrigger = (e: Date) => {
     if (childFunctionRef.current) {
-      // executa a função do filho
-      console.log("teste");
       childFunctionRef.current.updateWeekCalendarLine(e);
     }
   };
-
-  useEffect(() => {
-    console.log("dia selecionado", daySelected);
-  }, [daySelected]);
 
   return (
     <div className='relative'>
@@ -41,8 +35,7 @@ export const MiniCalendar = (): JSX.Element => {
               <SelectGroupDate
                 id='month-select'
                 label='Escolha um mês:'
-                value={daySelected} // Passa a data atual como valor
-                valueSelect={setDaySelected} // Atualiza o estado ao alterar o mês
+                value={daySelected}
                 updateWeekCalendarLine={handleTrigger}
               />
             </div>
@@ -53,7 +46,6 @@ export const MiniCalendar = (): JSX.Element => {
             />
           </div>
           <IsEmpity />
-          {/* footer */}
           {daySelected.toDateString()}
           <div className='text-center'>
             <a
@@ -87,39 +79,3 @@ const IsEmpity = (): JSX.Element => {
     </div>
   );
 };
-
-// // um select na qual recebe o valor selecionado
-// const SelectFiled = ({
-//   option,
-//   id,
-//   label,
-//   valueSelect,
-//   value,
-// }: {
-//   option: { value: string; label: string }[];
-//   id: string;
-//   label: string;
-//   valueSelect: any;
-//   value: Date;
-// }): JSX.Element => {
-//   return (
-//     <div className='relative my-3'>
-//       <label htmlFor='date' className='text-sm'>
-//         {label}
-//       </label>
-//       <select
-//         className='w-full py-2 px-3 border rounded'
-//         name='date'
-//         id={id}
-//         onChange={(e) => valueSelect(e.target.value)}
-//         value={value.getMonth().toString()}
-//       >
-//         {option.map((opt, index) => (
-//           <option key={index} value={opt.value ? opt.value : opt.label}>
-//             {opt.label}
-//           </option>
-//         ))}
-//       </select>
-//     </div>
-//   );
-// };

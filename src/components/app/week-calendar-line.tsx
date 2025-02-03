@@ -16,31 +16,25 @@ export const WeekCalendarLine = forwardRef(
 
     useImperativeHandle(ref, () => ({
       updateWeekCalendarLine(e: Date) {
-        buildWeek(e, true);
-        console.log("dia selecionado", daySelected);
-        console.log("do select", e);
+        setDaySelected(e);
+        buildWeek(e, false);
       },
     }));
 
     const buildWeek = (date: Date, isSetDay = true): void => {
       const week: Date[] = [];
-      const start = getWeekInMonthSelected(date)[0];
+      const start = getWeekInMonthSelected(new Date(date))[0];
       for (let i = 0; i < 7; i++) {
         week.push(new Date(start));
         start.setDate(start.getDate() + 1);
       }
       setWeekSelected(week);
-      console.log("updated", week);
       if (isSetDay) setDaySelected(week[0]);
     };
 
     useEffect(() => {
       buildWeek(new Date(), false);
     }, []);
-
-    useEffect(() => {
-      console.log("weekSelected", weekSelected);
-    }, [weekSelected]);
 
     const prevWeek = () => {
       const prev = getWeekInMonthSelected(daySelected)[0];
@@ -102,9 +96,9 @@ export const WeekCalendarLine = forwardRef(
 
 const DateToString = (date: Date): string => {
   const isToday = new Date().toDateString() === date.toDateString();
-  return `${isToday ? "Hoje -" : ""} ${weekDays[date.getDay()]}. de ${
-    nameMonth[date.getMonth()].short
-  }.`;
+  return `${isToday ? "Hoje -" : ""} ${
+    weekDays[date.getDay()]
+  }. ${date.getDate()} de ${nameMonth[date.getMonth()].short}.`;
 };
 
 export const nameMonth = [
