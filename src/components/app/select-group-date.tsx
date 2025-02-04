@@ -33,7 +33,7 @@ export const SelectGroupDate = ({
   };
 
   return (
-    <div className='flex justify-between my-3'>
+    <div className='flex justify-between my-3 gap-3'>
       <div>
         <label htmlFor={id} className='text-sm'>
           {label}

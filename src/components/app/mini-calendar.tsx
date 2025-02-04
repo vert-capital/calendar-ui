@@ -6,10 +6,12 @@ import { EventMiniCalendar } from "@/model/Events";
 // MOCK
 import mockMiniCalendar from "@/components/app/mock-mini-calendar.json";
 import { CardEventMiniCalendar } from "./card-event-mini-calendar";
+import { Icons } from "@vert-capital/design-system-ui";
 
 export const MiniCalendar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const [daySelected, setDaySelected] = useState<Date>(new Date());
+  const [search, setSearch] = useState<string>("");
   const childFunctionRef = useRef<{
     updateWeekCalendarLine: (e: Date) => void;
   } | null>(null);
@@ -26,17 +28,17 @@ export const MiniCalendar = (): JSX.Element => {
   return (
     <div className='relative'>
       <div className='cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
-        clique aqui
+        <Icons.CalendarCheck className='w-6 h-6 text-gray-400' />
       </div>
       <div className={isOpen ? "absolute w-[370px] z-[15]" : "hidden"}>
         <Box>
           <div>
             <div className='font-bold'>Calendário de eventos</div>
             <div
-              className='absolute top-0 right-0 px-4 py-2 cursor-pointer'
+              className='absolute top-2 right-0 px-4 py-2 cursor-pointer'
               onClick={() => setIsOpen(!isOpen)}
             >
-              x
+              <Icons.X className='w-4 h-4' />
             </div>
 
             <div className='flex justify-between'>
@@ -52,9 +54,10 @@ export const MiniCalendar = (): JSX.Element => {
               setDaySelected={setDaySelected}
               ref={childFunctionRef}
             />
+            <InputSearch search={search} setSearch={setSearch} />
           </div>
           {mock.length > 0 ? (
-            <div className='h-full mt-3 flex flex-col gap-3'>
+            <div className='h-full max-h-[60vh] overflow-auto mt-3 flex flex-col gap-3'>
               {mock.map((event) => (
                 <CardEventMiniCalendar
                   key={event.id}
@@ -66,7 +69,7 @@ export const MiniCalendar = (): JSX.Element => {
             <IsEmpity />
           )}
           {/* {daySelected.toDateString()} */}
-          <div className='text-center'>
+          <div className='text-center pt-3'>
             <a
               href='#'
               target='_blank'
@@ -95,6 +98,29 @@ const IsEmpity = (): JSX.Element => {
       <div className='font-bold text-gray-400 text-sm'>
         Você não possui eventos na data selecionada, verifique a visão completa
       </div>
+    </div>
+  );
+};
+
+const InputSearch = ({
+  search,
+  setSearch,
+}: {
+  search: string;
+  setSearch: (e: string) => void;
+}): JSX.Element => {
+  return (
+    <div className='w-full mt-3 flex rounded-lg border items-center focus-visible:outline-none focus-within:border-stone-500'>
+      <input
+        type='text'
+        placeholder='Buscar...'
+        className='w-full py-2 px-3 border-0 rounded-lg focus-visible:outline-none'
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <Icons.Search
+        onClick={() => setSearch(search)}
+        className='w-9 h-6 text-gray-400 px-2 cursor-pointer'
+      />
     </div>
   );
 };

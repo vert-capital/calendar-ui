@@ -1,6 +1,7 @@
 import { getWeekInMonthSelected } from "@/common";
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { weekDays } from "../ui/datepicker/date";
+import { Icons } from "@vert-capital/design-system-ui";
 
 interface IPropsWeekCalendarLine {
   daySelected: Date;
@@ -49,42 +50,54 @@ export const WeekCalendarLine = forwardRef(
 
     return (
       <>
-        <div className='my-3 w-full flex justify-between'>
-          <div onClick={() => prevWeek()}>left</div>
-          <div onClick={() => nextWeek()}>rigth</div>
-        </div>
-        <div className='flex justify-between mt-3'>
-          {weekDays.map((day, index) => (
-            <div
-              key={index}
-              className='text-xs text-stone-500'
-              style={{
-                width: "22px",
-                height: "21px",
-                padding: "2px",
-                textAlign: "center",
-              }}
-            >
-              {day}
+        <div className='flex w-full items-center gap-2'>
+          <div
+            className='py-4 px-1 mt-2 cursor-pointer transition hover:opacity-70'
+            onClick={() => prevWeek()}
+          >
+            <Icons.ChevronLeft className='w-4 h-4' />
+          </div>
+          <div className='w-full'>
+            <div className='flex justify-between mt-3'>
+              {weekDays.map((day, index) => (
+                <div
+                  key={index}
+                  className='text-xs text-stone-500'
+                  style={{
+                    width: "22px",
+                    height: "21px",
+                    padding: "2px",
+                    textAlign: "center",
+                  }}
+                >
+                  {day}
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-        <div className='flex justify-between text-gray-400'>
-          {weekSelected.map((day) => (
-            <div
-              className={` ${
-                daySelected.getDate() === day.getDate()
-                  ? "font-bold text-stone-600"
-                  : ""
-              } w-[22px] text-center text-sm transition hover:opacity-70 cursor-pointer`}
-              key={day.toString()}
-              onClick={() => {
-                setDaySelected(day);
-              }}
-            >
-              {day.getDate()}
+            <div className='flex justify-between text-gray-400'>
+              {weekSelected.map((day) => (
+                <div
+                  className={` ${
+                    daySelected.getDate() === day.getDate()
+                      ? "font-bold text-stone-600"
+                      : ""
+                  } w-[22px] text-center text-sm transition hover:opacity-70 cursor-pointer`}
+                  key={day.toString()}
+                  onClick={() => {
+                    setDaySelected(day);
+                  }}
+                >
+                  {day.getDate()}
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+          <div
+            className='py-4 px-1 mt-2 cursor-pointer transition hover:opacity-70'
+            onClick={() => nextWeek()}
+          >
+            <Icons.ChevronRight className='w-4 h-4' />
+          </div>
         </div>
         <div className='font-bold text-stone-600 text-sm mt-3'>
           {DateToString(daySelected)}
