@@ -1,6 +1,11 @@
 import { useRef, useState } from "react";
 import { WeekCalendarLine } from "./week-calendar-line";
 import { SelectGroupDate } from "./select-group-date";
+import { EventMiniCalendar } from "@/model/Events";
+
+// MOCK
+import mockMiniCalendar from "@/components/app/mock-mini-calendar.json";
+import { CardEventMiniCalendar } from "./card-event-mini-calendar";
 
 export const MiniCalendar = (): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,12 +20,15 @@ export const MiniCalendar = (): JSX.Element => {
     }
   };
 
+  // MOCK
+  const mock = mockMiniCalendar.results;
+
   return (
     <div className='relative'>
       <div className='cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
         clique aqui
       </div>
-      <div className={isOpen ? "absolute w-[320px] z-[15]" : "hidden"}>
+      <div className={isOpen ? "absolute w-[370px] z-[15]" : "hidden"}>
         <Box>
           <div>
             <div className='font-bold'>Calendário de eventos</div>
@@ -45,8 +53,19 @@ export const MiniCalendar = (): JSX.Element => {
               ref={childFunctionRef}
             />
           </div>
-          <IsEmpity />
-          {daySelected.toDateString()}
+          {mock.length > 0 ? (
+            <div className='h-full mt-3 flex flex-col gap-3'>
+              {mock.map((event) => (
+                <CardEventMiniCalendar
+                  key={event.id}
+                  data={new EventMiniCalendar(event)}
+                />
+              ))}
+            </div>
+          ) : (
+            <IsEmpity />
+          )}
+          {/* {daySelected.toDateString()} */}
           <div className='text-center'>
             <a
               href='#'
