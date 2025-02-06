@@ -4,14 +4,30 @@ import { SelectGroupDate } from "./select-group-date";
 import { EventMiniCalendar } from "@/model/Events";
 
 // MOCK
-import mockMiniCalendar from "@/components/app/mock-mini-calendar.json";
+// import mockMiniCalendar from "@/components/app/mock-mini-calendar.json";
 import { CardEventMiniCalendar } from "./card-event-mini-calendar";
 import { Icons } from "@vert-capital/design-system-ui";
 
-export const MiniCalendar = (): JSX.Element => {
+interface IProps {
+  daySelected: Date;
+  setDaySelected: React.Dispatch<React.SetStateAction<Date>>;
+  search: string;
+  setSearch: (e: string) => void;
+  url: string;
+  data: EventMiniCalendar[];
+  isLoading?: boolean;
+}
+
+export const MiniCalendar = ({
+  daySelected,
+  setDaySelected,
+  search,
+  setSearch,
+  url,
+  data,
+  isLoading,
+}: IProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
-  const [daySelected, setDaySelected] = useState<Date>(new Date());
-  const [search, setSearch] = useState<string>("");
   const childFunctionRef = useRef<{
     updateWeekCalendarLine: (e: Date) => void;
   } | null>(null);
@@ -21,9 +37,6 @@ export const MiniCalendar = (): JSX.Element => {
       childFunctionRef.current.updateWeekCalendarLine(e);
     }
   };
-
-  // MOCK
-  const mock = mockMiniCalendar.results;
 
   return (
     <div className='relative'>
@@ -56,9 +69,13 @@ export const MiniCalendar = (): JSX.Element => {
             />
             <InputSearch search={search} setSearch={setSearch} />
           </div>
-          {mock.length > 0 ? (
+          {isLoading ? (
+            <div className='w-full h-full flex justify-center items-center'>
+              <Icons.Loader2 className='w-8 ml-2 animate-spin opacity-40' />
+            </div>
+          ) : data.length > 0 ? (
             <div className='h-full max-h-[60vh] overflow-auto mt-3 flex flex-col gap-3'>
-              {mock.map((event) => (
+              {data.map((event) => (
                 <CardEventMiniCalendar
                   key={event.id}
                   data={new EventMiniCalendar(event)}
@@ -71,7 +88,7 @@ export const MiniCalendar = (): JSX.Element => {
           {/* {daySelected.toDateString()} */}
           <div className='text-center pt-3'>
             <a
-              href='#'
+              href={url}
               target='_blank'
               className='font-bold text-brand text-sm transition hover:opacity-70'
             >
