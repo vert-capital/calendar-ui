@@ -9,7 +9,7 @@ export const CardEventMiniCalendar = ({
     id,
     color,
     event_title,
-    responsible_obligation,
+    responsable_formated,
     patrimony_formatted,
     status,
   },
@@ -30,7 +30,7 @@ export const CardEventMiniCalendar = ({
           <span>{` (${patrimony_formatted})`}</span>
         </p>
         <p className='text-ellipsis overflow-hidden mt-1'>
-          {responsible_obligation}
+          {responsable_formated}
         </p>
       </div>
     </a>

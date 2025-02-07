@@ -185,8 +185,56 @@ export class EventMiniCalendar extends BasicEvent {
       : "";
   }
 
-  // analizar melhor
-  get responsible(): string {
-    return this.emission?.principal_responsable_name;
+  get responsable_formated(): string {
+    const coresponsableName = this.getCoresponsable().map((item) => item.name);
+    if (this.json.responsible_obligation) {
+      return (
+        this.json.responsible_obligation.name +
+        " (Responsável)" +
+        (this.emission ? `, ${coresponsableName.join(", ")}` : "")
+      );
+    } else {
+      return this.emission
+        ? this.emission?.principal_responsable_name +
+            " (Responsável), " +
+            coresponsableName.join(", ")
+        : "";
+    }
   }
+
+  getCoresponsable(): IResponsible[] {
+    const coResponsible = this.emission?.responsibles.filter(
+      (main) => main.name != this.getResponsable().name
+    );
+    const response =
+      this.emission?.principal_responsable_name &&
+      this.getResponsable().name != this.emission?.principal_responsable_name
+        ? [
+            {
+              name: this.emission?.principal_responsable_name,
+              area: this.emission?.principal_responsable_area,
+            },
+            ...coResponsible,
+          ]
+        : coResponsible;
+    return response || [];
+  }
+
+  getResponsable(): IResponsible {
+    return this.json.responsible_obligation &&
+      this.json.responsible_obligation.name != ""
+      ? {
+          name: this.json.responsible_obligation.name,
+          area: this.json.responsible_obligation.area,
+        }
+      : {
+          name: this.emission?.principal_responsable_name,
+          area: this.emission?.principal_responsable_area,
+        };
+  }
+}
+
+export interface IResponsible {
+  name: string;
+  area: string;
 }
