@@ -39,11 +39,11 @@ export const MiniCalendar = ({
   };
 
   return (
-    <div className='relative'>
+    <div className=''>
       <div className='cursor-pointer' onClick={() => setIsOpen(!isOpen)}>
         <Icons.CalendarCheck className='w-6 h-6 text-gray-400' />
       </div>
-      <div className={isOpen ? "absolute w-[370px] z-[15]" : "hidden"}>
+      <div className={isOpen ? "absolute w-[370px] z-[15] right-6" : "hidden"}>
         <Box>
           <div>
             <div className='font-bold'>Calendário de eventos</div>
